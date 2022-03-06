@@ -17,8 +17,7 @@ steps:
   with:
   creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-- run: |
-az account show
+- run: az account show
 
 #jobs:
 #  terraform:
