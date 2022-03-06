@@ -54,4 +54,12 @@ jobs:
       
       - name: Terraform plan
         id: plan
-        run: terraform plan
+        run: terraform plan -no-color
+
+      # TODO: ADD Comment Back to Pull Request https://nedinthecloud.com/2021/12/08/github-actions-with-terraform/
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply --auto-approve
+
+
