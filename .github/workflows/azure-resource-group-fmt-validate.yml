@@ -21,6 +21,10 @@ jobs:
         working-directory: ./azure-resource-group
 
     steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: 'Login to Azure'
         uses: azure/login@v1
         with:
@@ -28,10 +32,6 @@ jobs:
       
       - name: 'Azure account show'
         run: az account show
-
-        # Checkout the repository to the GitHub Actions runner
-      - name: Checkout
-        uses: actions/checkout@v2
 
         # Install the preferred version of Terraform CLI 
       - name: Setup Terraform
