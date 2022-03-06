@@ -1,17 +1,16 @@
-name: 'azure-resource-group'
+name: 'Terraform FMT and Validate'
  
 on:
   push:
-    branches:
-    - master
-  pull_request:
+    branches-ignore:
+      - master
 
 env:
   TF_LOG: INFO
 
 jobs:
   terraform:
-    name: 'azure-resource-group'
+    name: 'terraform fmt and validate'
     runs-on: ubuntu-latest
     
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
