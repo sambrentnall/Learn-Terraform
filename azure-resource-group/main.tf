@@ -6,9 +6,6 @@ terraform {
       version = "~> 2.0"
     }
   }
-  backend "azurerm" {
-    key = "app.terraform.tfstate"
-  }
 }
 
 provider "azurerm" {
@@ -17,6 +14,6 @@ provider "azurerm" {
 
 # Create resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "Terraform_RG"
-  location = "uksouth"
+  name     = "${var.resourcename}ResourceGroup"
+  location = var.azure_location
 }

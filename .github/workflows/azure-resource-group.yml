@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'azure-resource-group'
  
 on:
   push:
@@ -11,7 +11,7 @@ env:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'azure-resource-group'
     runs-on: ubuntu-latest
     
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -34,16 +34,8 @@ jobs:
 
         - name: Terraform Init
           id: init
-          env:
-            ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-            ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-            ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-            RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-            STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
-            CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
-          run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
+          run: terraform init
 
-        - name: 'Terraform Format'
+        - name: Terraform format
           id: fmt
-          run: terraform fmt
+          run: terraform fmt -check
