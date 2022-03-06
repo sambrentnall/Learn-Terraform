@@ -1,15 +1,16 @@
-name: 'Terraform FMT, Validate & Plan'
+name: 'Terraform FMT & Validate'
  
 on:
-  pull_request:
-    branches: [ master ]
+  push:
+    branches-ignore:
+      - master
 
 env:
   TF_LOG: INFO
 
 jobs:
   terraform:
-    name: 'Terraform FMT, Validate & Plan'
+    name: 'Terraform FMT & Validate'
     runs-on: ubuntu-latest
     
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
