@@ -9,48 +9,37 @@ env:
   TF_LOG: INFO
 
 jobs:
-  name: 'test-azure-login'
-  runs-on: ubuntu-latest
+  terraform:
+    name: 'Terraform FMT & Validate'
+    runs-on: ubuntu-latest
+    
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    # Set the working directory to main for the config files
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./azure-resource-group
 
-steps:
-  - uses: azure/login@v1
-    with:
-      creds: ${{ secrets.AZURE_CREDENTIALS }}
+    steps:
+      - name: 'Login to Azure'
+        with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-  - name: azure
-    run: az account show
+      - name: 'Creating Azure Function App'
+        uses: azure/CLI@v1
+      
+      - name: 'Azure account show'
+        run: az account show
 
-#jobs:
-#  terraform:
-#    name: 'Terraform FMT & Validate'
-#    runs-on: ubuntu-latest
-#    
-#    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-#    # Set the working directory to main for the config files
-#    defaults:
-#      run:
-#        shell: bash
-#        working-directory: ./azure-resource-group
-#
-#    steps:
-#        # Checkout the repository to the GitHub Actions runner
-#        - name: Checkout
-#          uses: actions/checkout@v2
-#
-#        # Install the preferred version of Terraform CLI 
-#        - name: Setup Terraform
-#          uses: hashicorp/setup-terraform@v1
-#          with:
-#            terraform_version: 1.0.10
-#
-#        - name: Setup azureLogin
-#          uses: azure/login@v1
-#          with:
-#            creds: ${{ secrets.AZURE_CREDENTIALS }}
-#
-#        - name: azure
-#          id: az
-#          run: az account show
+        # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
+
+        # Install the preferred version of Terraform CLI 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.10
 #          
 #           # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
 #        - name: Terraform Init
