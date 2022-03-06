@@ -7,6 +7,13 @@ on:
 
 env:
   TF_LOG: INFO
+  ARM_CLIENT_ID: ${{ secrets.TF_ARM_CLIENT_ID }}
+  RM_CLIENT_SECRET: ${{ secrets.TF_ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: <${{ secrets.TF_ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: <${{ secrets.TF_ARM_TENANT_ID }}
+  RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+  STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
+  CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
 
 jobs:
   terraform:
@@ -33,7 +40,7 @@ jobs:
 
         - name: Terraform Init
           id: init
-          run: terraform init
+          run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
 
         - name: Terraform format
           id: fmt
