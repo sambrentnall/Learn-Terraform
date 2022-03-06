@@ -25,14 +25,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Connect to Azure
-      - name: 'Login to Azure'
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
-      - name: 'Azure account show'
-        run: az account show
+#      # Connect to Azure
+#      - name: 'Login to Azure'
+#        uses: azure/login@v1
+#        with:
+#          creds: ${{ secrets.AZURE_CREDENTIALS }}
+#      
+#      - name: 'Azure account show'
+#        run: az account show
 
       # Install the preferred version of Terraform CLI 
       - name: Setup Terraform
