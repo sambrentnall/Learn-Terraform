@@ -14,6 +14,6 @@ provider "azurerm" {
 
 # Create resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.resourcename}ResourceGroup"
-  location = var.azure_location
+  name     = "${var.resourcename_doesnt_exist}ResourceGroup"
+  location =       var.azure_location
 }
