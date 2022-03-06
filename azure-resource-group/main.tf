@@ -6,14 +6,14 @@ terraform {
       version = "~> 2.0"
     }
   }
-
+}
 
 provider "azurerm" {
   features {}
 }
 
 # Create resource group
-resource "azurerm_resource_group" "rg" {
-  name     = "${var.resourcename}ResourceGroup"
-  location = var.azure_location
+        resource "azurerm_resource_group" "rg" {
+          name     = "${var.resourcename}ResourceGroup"
+          location = var.azure_location
 }
