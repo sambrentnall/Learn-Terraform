@@ -9,15 +9,16 @@ env:
   TF_LOG: INFO
 
 jobs:
-  test-azure-login:
-    runs-on: ubuntu-latest
+  name: 'test-azure-login'
+  runs-on: ubuntu-latest
+
 steps:
+  - uses: azure/login@v1
+    with:
+      creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-- uses: azure/login@v1
-  with:
-  creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-- run: az account show
+  - name: azure
+    run: az account show
 
 #jobs:
 #  terraform:
