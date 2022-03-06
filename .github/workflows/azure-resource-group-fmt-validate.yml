@@ -24,16 +24,16 @@ jobs:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
         uses: actions/checkout@v2
-
-      # Connect to Azure
-      - name: 'Login to Azure'
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
-      - name: 'Azure account show'
-        run: az login
-
+#
+#      # Connect to Azure
+#      - name: 'Login to Azure'
+#        uses: azure/login@v1
+#        with:
+#          creds: ${{ secrets.AZURE_CREDENTIALS }}
+#      
+#      - name: 'Azure account show'
+#        run: az login
+#
       # Install the preferred version of Terraform CLI 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -48,10 +48,10 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-          STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
-          CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
-        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"    
+#          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+#          STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
+#          CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
+        run: terraform init #-backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"    
 #
 #        - name: Terraform format
 #          id: fmt
