@@ -9,50 +9,62 @@ env:
   TF_LOG: INFO
 
 jobs:
-  terraform:
-    name: 'Terraform FMT & Validate'
+  test-azure-login:
     runs-on: ubuntu-latest
-    
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    # Set the working directory to main for the config files
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./azure-resource-group
+steps:
 
-    steps:
-        # Checkout the repository to the GitHub Actions runner
-        - name: Checkout
-          uses: actions/checkout@v2
+- uses: azure/login@v1
+  with:
+  creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-        # Install the preferred version of Terraform CLI 
-        - name: Setup Terraform
-          uses: hashicorp/setup-terraform@v1
-          with:
-            terraform_version: 1.0.10
+- run: |
+az account show
 
-        - name: Setup azureLogin
-          uses: azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-        - name: azure
-          id: az
-          run: az account show
-          
-           # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-        - name: Terraform Init
-          id: init
-          env:
-            ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-            ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-            RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-            STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
-            CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
-          run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"    
-
+#jobs:
+#  terraform:
+#    name: 'Terraform FMT & Validate'
+#    runs-on: ubuntu-latest
+#    
+#    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+#    # Set the working directory to main for the config files
+#    defaults:
+#      run:
+#        shell: bash
+#        working-directory: ./azure-resource-group
+#
+#    steps:
+#        # Checkout the repository to the GitHub Actions runner
+#        - name: Checkout
+#          uses: actions/checkout@v2
+#
+#        # Install the preferred version of Terraform CLI 
+#        - name: Setup Terraform
+#          uses: hashicorp/setup-terraform@v1
+#          with:
+#            terraform_version: 1.0.10
+#
+#        - name: Setup azureLogin
+#          uses: azure/login@v1
+#          with:
+#            creds: ${{ secrets.AZURE_CREDENTIALS }}
+#
+#        - name: azure
+#          id: az
+#          run: az account show
+#          
+#           # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+#        - name: Terraform Init
+#          id: init
+#          env:
+#            ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+#            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+#            ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+#            ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+#            RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+#            STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
+#            CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
+#          run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"    
+#
 #        - name: Terraform format
 #          id: fmt
 #          run: terraform fmt -check
