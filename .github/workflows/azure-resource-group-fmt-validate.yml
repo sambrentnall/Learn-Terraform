@@ -21,9 +21,6 @@ jobs:
         working-directory: ./azure-resource-group
 
     steps:
-      - name: 'Creating Azure Function App'
-        uses: azure/CLI@v1
-        
       - name: 'Login to Azure'
         uses: azure/login@v1
         with:
