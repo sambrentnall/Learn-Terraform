@@ -34,7 +34,7 @@ jobs:
           id: init
           env:   
             ARM_CLIENT_ID: ${{ secrets.TF_ARM_CLIENT_ID }}
-            RM_CLIENT_SECRET: ${{s ecrets.TF_ARM_CLIENT_SECRET }}
+            RM_CLIENT_SECRET: ${{ secrets.TF_ARM_CLIENT_SECRET }}
             ARM_SUBSCRIPTION_ID: <${{ secrets.TF_ARM_SUBSCRIPTION_ID }}
             ARM_TENANT_ID: <${{ secrets.TF_ARM_TENANT_ID }}
             RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
