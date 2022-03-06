@@ -1,11 +1,16 @@
 name: 'Terraform FMT & Validate'
  
 on:
-  pull_request:
-    branches: [ master ]
+  push:
+    branches-ignore:
+      - master
 
 env:
   TF_LOG: INFO
+  ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
+  ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
+  ARM_SUBSCRIPTION_ID: <${{secrets.TF_ARM_SUBSCRIPTION_ID}}
+  ARM_TENANT_ID: <${{secrets.TF_ARM_TENANT_ID}}
 
 jobs:
   terraform:
@@ -42,3 +47,7 @@ jobs:
           id: validate
           if: (success() || failure())
           run: terraform validate -no-color
+
+        - name: Terraform plan
+          id: plan
+          run: terraform plan
