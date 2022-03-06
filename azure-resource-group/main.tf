@@ -14,8 +14,7 @@ provider "azurerm" {
   features {}
 }
 
-# create resource group with location from variable
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.resourcename}ResourceGroup"
-  location = var.azure_location
+  name     = "Terraform_RG"
+  location = "uksouth"
 }
